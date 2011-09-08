@@ -126,8 +126,8 @@ class Noginn_Controller_Action_Helper_SendFile extends Zend_Controller_Action_He
         $response->setHeader('Last-Modified', gmdate('r', $modified), true);
         $response->setHeader('Content-Length', filesize($path), true);
         $response->sendHeaders();
-
-        readfile($path);
+        $response->setBody(file_get_contents($path));
+        
         return true;
     }
 
@@ -175,7 +175,7 @@ class Noginn_Controller_Action_Helper_SendFile extends Zend_Controller_Action_He
         $response->setHeader('Content-Length', strlen($data), true);
         $response->sendHeaders();
 
-        echo $data;
+        $response->setBody($data);
         return true;
     }
 
